@@ -1,13 +1,12 @@
 # Projekt-Medieninformatik-DLBIPMI01
-Konzeption und Realisierung einer interaktiven Firmenhistorie als Microsite 
 
 ## Hochschule
 IU Internationale Hochschule  
 Studiengang: Medieninformatik (Fernstudium)
 
 ## Projekt
-**Projektbericht zur Aufgabenstellung 1**  
-**Konzeption und Realisierung einer interaktiven Firmenhistorie als Microsite**
+Projektbericht zur Aufgabenstellung 1 
+Konzeption und Realisierung einer interaktiven Firmenhistorie als Microsite
 
 ## Beschreibung
 Dieses Repository enthält den Quellcode des im Rahmen des oben genannten Moduls erstellten Studienprojekts.  
