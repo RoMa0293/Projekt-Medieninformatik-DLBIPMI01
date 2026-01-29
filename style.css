@@ -1,0 +1,1157 @@
+/* =========================
+   MEIN Z-INDEX SYSTEM
+   0–9        Base Content
+   40–60      Overlays / Mobile Nav
+   100        Navbar
+   800–899    Floating UI (Scroll, Hinweise)
+   900–999    Effekte / Temporäre Overlays (Konfetti, Hinweise)
+   1000–1999  Promo / Floating Panels
+   2000+      Modals
+========================= */
+
+:root {
+  --primary1: hsl(120, 11%, 18%);
+  --primary2: hsl(13, 25%, 14%);
+  --bg: hsl(38, 40%, 96%);
+  --text: hsl(0, 0%, 20%);
+  --accent-cta: hsl(30, 90%, 72%);
+  --accent-hover: hsl(123, 38%, 64%);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  font-family: system-ui, sans-serif;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 1400px;
+  margin: auto;
+  padding: 0 2rem;
+}
+
+@media (max-width: 900px) {
+  .container {
+    padding: 0 1rem;
+  }
+}
+
+/* =========================
+   PROMO BAR
+========================= */
+.promo {
+  width: 100%;
+  background-color: var(--accent-cta);
+  color: var(--text);
+  text-align: center;
+  padding: 0.6rem 1rem;
+  font-size: 0.95rem;
+}
+
+.promo__text {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* =========================
+   NAVIGATION
+========================= */
+.navbar {
+  background-color: var(--primary1);
+  color: var(--bg);
+  width: 100%;
+  position: relative;
+  z-index: 100;
+}
+
+.navbar__container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  gap: 2rem;
+}
+
+/* ===== NAVIGATION Navbar Logo ===== */
+.navbar__logo img {
+  cursor: pointer;
+  height: 50px;
+  width: auto;
+}
+
+@media (max-width: 900px) {
+  .navbar__logo img {
+    height: 35px;
+  }
+}
+
+/* ===== NAVIGATION Navbar Links ===== */
+.navbar__links ul {
+  display: flex;
+  gap: 1rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.navbar__links ul li a {
+  position: relative;
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  color: var(--bg);
+  text-decoration: none;
+  border-radius: 0.5rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.navbar__links ul li a:hover {
+  background-color: var(--accent-hover);
+  color: white;
+}
+
+/* ===== NAVIGATION Navbar Unterstreichung ===== */
+.navbar__links ul li a::after {
+  content: "";
+  position: absolute;
+  left: 10%;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
+  background-color: var(--bg);
+  transition: width 0.3s ease;
+}
+
+.navbar__links ul li a:hover::after,
+.navbar__links ul li a.active::after {
+  width: 80%;
+}
+
+/* ===== NAVIGATION Navbar Icons ===== */
+.navbar__icons {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.navbar__icon {
+  width: 28px;
+  height: 28px;
+  stroke: var(--bg);
+  cursor: pointer;
+  transition: transform 0.2s ease, stroke 0.2s ease;
+}
+
+.navbar__icon:hover {
+  transform: scale(1.2);
+  stroke: var(--accent-hover);
+}
+
+/* ===== NAVIGATION Navbar Hamburger Menü ===== */
+.navbar__toggleButton {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 21px;
+  cursor: pointer;
+  z-index: 60;
+  position: relative;
+}
+
+.navbar__bar {
+  height: 3px;
+  width: 100%;
+  background-color: var(--bg);
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+.navbar__toggleButton.active .navbar__bar {
+  display: none;
+}
+
+.navbar__toggleButton.active::after {
+  content: "✕";
+  color: var(--bg);
+  font-size: 24px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* =========================
+   NAVIGATION RESPONSIVE
+========================= */
+@media (max-width: 900px) {
+  .navbar__container {
+    position: relative;
+  }
+
+  .navbar__links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: var(--primary1);
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.4s ease;
+    z-index: 50;
+  }
+
+  .navbar__links ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 0;
+  }
+
+  .navbar__links ul li a {
+    font-size: 1.1rem;
+    padding: 0.5rem 0;
+  }
+
+  .navbar__links.active {
+    max-height: 500px;
+  }
+
+  .navbar__icons {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .navbar__toggleButton {
+    display: flex;
+  }
+
+  .navbar__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+    z-index: 40;
+  }
+
+  .navbar__overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  body.nav-open {
+    overflow: hidden;
+  }
+}
+
+
+/* =========================
+   SECTIONS
+========================= */
+.section {
+  margin: 4rem 0;
+  padding: 3rem 0rem;
+}
+
+.section__title {
+  margin-bottom: 1.5rem;
+}
+
+.section__title--center {
+  padding: 4rem 1rem;
+  background: var(--bg);
+  text-align: center;
+}
+
+/* =========================
+   GRID
+========================= */
+.grid-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0rem 1rem 4rem 1rem;
+}
+
+.grid-2col img {
+  width: 100%;
+  border-radius: 1rem;
+  object-fit: cover;
+}
+
+/* =========================
+   GRID RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+  .grid-2col {
+    grid-template-columns: 1fr;
+  }
+
+  .grid-2col img {
+    margin-top: 2rem;
+  }
+}
+
+/* =========================
+   HERO
+========================= */
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 375px;
+  max-width: 100vw;
+  background-image: url('hero-dogs.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-bottom: -4rem;
+}
+
+.hero__overlay {
+  position: relative;
+  z-index: 2;
+  color: var(--bg);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  text-shadow: 0 2px 8px rgba(0,0,0,1);
+}
+
+.hero__headline {
+  font-size: 3rem;
+  color: var(--bg);
+  margin-bottom: 1rem;
+}
+
+.hero__text {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  text-shadow: 0 2px 8px rgba(0,0,0,1);
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: var(--text); /*alternative zu Bild*/
+  z-index: 1;
+}
+
+/* =========================
+   HERO RESPONSIVE
+========================= */
+@media (max-width: 900px) {
+  .hero {
+    background-image: url('hero-dogs-mobile.jpg');
+  }
+
+  .hero__headline {
+    font-size: 2.2rem;
+  }
+
+  .hero__text {
+    font-size: 1.1rem;
+  }
+}
+
+/* =========================
+   PAWLANT WERTE
+========================= */
+.values__cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.values__card {
+  background: white;
+  padding: 2rem 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.values__card:hover {
+  transform: translateY(-5px) scale(1.01);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+}
+
+.values__icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.values__title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--primary1);
+}
+
+.values__text {
+  font-size: 1rem;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+/* =========================
+   PAWLANT STORY & GRÜNDER
+========================= */
+
+.pawlant__story-text {
+  font-size: 1rem;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+.pawlant__story-text a {
+  text-decoration: none;
+  color: var(--accent-cta);
+}
+
+.pawlant__story-logo {
+  max-width: 300px;
+  width: 100%;
+  border-radius: 0 !important;
+  object-fit: cover;
+  justify-self: center;
+}
+
+.pawlant__audio {
+  margin-top: 1.5rem;
+}
+
+.pawlant__audio-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+
+.pawlant__audio audio {
+  width: 100%;
+  max-width: 420px;
+}
+
+/* =========================
+   PAWLANT STORY & GRÜNDER RESPONSIVE
+========================= */
+@media (max-width: 900px) {
+   .pawlant__story-logo {
+    margin: 2rem auto 0 auto;
+  }
+}
+
+/* =========================
+   PAWLANT MISSION
+========================= */
+.mission--full {
+  position: relative;
+  width: 100%;
+  background-color: var(--primary1);
+  color: var(--bg);
+  padding: 6rem 2rem;
+  overflow: hidden;
+}
+
+.mission__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  gap: 5rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.mission__text-wrapper {
+  flex: 1 1 500px;
+}
+
+.mission__text-wrapper h2 {
+  margin-bottom: 1.5rem;
+}
+
+.mission__text-wrapper p {
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.mission__video-wrapper {
+  flex: 0 0 450px;      /* kontrollierte Breite */
+  max-width: 100%;
+  aspect-ratio: 16 / 9;
+  display: flex;
+  align-self: center;
+}
+
+.mission__video-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 8px;
+}
+
+/* =========================
+   PAWLANT MISSION RESPONSIVE
+========================= */
+@media (max-width: 1078px) {
+  .mission__inner {
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  .mission__text-wrapper,
+  .mission__video-wrapper {
+    width: 100%;
+  }
+  .mission__text-wrapper {
+    flex: 1 1 200px;
+  }
+  .mission__video-wrapper {
+    max-height: 300px;
+  }
+}
+
+/* =========================
+   PAWLANT GESCHICHTE
+========================= */
+.about__timeline-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.about__timeline-btn {
+  background: none;
+  border: none;
+  color: var(--accent-cta);
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.5rem 0.8rem;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.about__timeline-btn:hover {
+  color: var(--accent-hover);
+}
+
+.about__timeline-btn.active {
+  color: var(--primary1);
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.about__timeline-btn.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 100%;
+  height: 3px;
+  background-color: var(--primary1);
+  border-radius: 2px;
+}
+
+.about__timeline-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0rem;
+  padding: 0 0 3rem 0;
+  align-items: center;
+}
+
+.about__timeline-img {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  height: 250px;
+}
+
+.about__timeline-img img {
+  width: 100%;
+  height: 100%;
+  border-radius: 1rem 0 0 1rem;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: opacity 0.5s ease;
+  opacity: 1;
+}
+
+.about__timeline-text {
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+  line-height: 1.4;
+}
+
+.text-highlight {
+  background: white;
+  padding: 4rem;
+  border-radius: 0 1rem 1rem 0;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.06);
+}
+
+.about__timeline-text h3,
+.about__timeline-text p {
+  transition: opacity 0.5s ease, transform 0.3s ease;
+  opacity: 1;
+  margin: 0.3rem 0;
+}
+
+.text-fade-out h3,
+.text-fade-out p {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+/* =========================
+   PAWLANT GESCHICHTE RESPONSIVE
+========================= */
+@media (max-width: 900px) {
+  .about__timeline-content {
+    grid-template-columns: 1fr;
+    touch-action: pan-y;
+    user-select: none;
+  }
+
+  .about__timeline-img {
+    height: 250px;
+    margin-bottom: 1.5rem;
+  }
+
+  .about__timeline-text {
+    text-align: left;
+    padding: 0 1rem;
+  }
+
+  .about__timeline-img img {
+    border-radius: 1rem 1rem 0 0;
+  }
+
+  .text-highlight {
+    border-radius: 0 0 1rem 1rem;
+  }
+}
+
+/* =========================
+   PAWLANT ZAHLEN
+========================= */
+.pawlant__numbers {
+  padding: 4rem 1rem;
+  background: var(--bg);
+  text-align: center;
+}
+
+.numbers__cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+}
+
+.numbers__card {
+  background: white;
+  padding: 2rem 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.numbers__card:hover {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+}
+
+.numbers__value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary1);
+  margin-bottom: 0.5rem;
+}
+
+.numbers__title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.numbers__text {
+  font-size: 1rem;
+  color: var(--text);
+  margin-bottom: 1.2rem;
+  line-height: 1.4;
+}
+
+.numbers__button {
+  padding: 0.5rem 1.2rem;
+  border: none;
+  background-color: var(--accent-cta);
+  color: white;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.numbers__button:hover {
+  background-color: var(--accent-hover);
+  transform: scale(1.05);
+}
+
+/* =========================
+   PAWLANT ZAHLEN RESPONSIVE
+========================= */
+@media (max-width: 900px) {
+  .pawlant__numbers {
+    margin-block: -4rem;
+  }
+}
+
+/* =========================
+   PAWLANT QUIZ
+========================= */
+.about__quiz-intro {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.quiz {
+  max-width: 640px;
+  margin: 0 auto;
+  background: white;
+  padding: 3rem;
+  border-radius: 2rem;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+  position: relative;
+}
+
+#quiz {
+  margin-bottom: -4rem;
+}
+
+.quiz::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 2rem;
+  border: 3px solid var(--primary2);
+  pointer-events: none;
+}
+
+.quiz__progress {
+  height: 6px;
+  background: hsl(0, 0%, 85%);
+  border-radius: 3px;
+  margin-bottom: 2rem;
+  overflow: hidden;
+}
+
+.quiz__progress-bar {
+  height: 100%;
+  width: 0%;
+  background: var(--accent-cta);
+  transition: width 0.4s ease;
+}
+
+.quiz__question {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.quiz__answers {
+  display: grid;
+  gap: 1rem;
+}
+
+.quiz__answers button {
+  padding: 1rem 1.2rem;
+  border-radius: 1rem;
+  border: 2px solid transparent;
+  background: white;
+  border-color: hsl(0, 0%, 90%);
+  cursor: pointer;
+  text-align: left;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.quiz__answers button:hover {
+  border-color: var(--accent-hover);
+  background: hsl(123, 38%, 96%);
+}
+
+.quiz__answers button.correct {
+  background: hsl(123, 38%, 88%);
+  border-color: var(--accent-hover);
+}
+
+.quiz__answers button.wrong {
+  background: hsl(36, 100%, 92%);
+  border-color: var(--accent-cta);
+}
+
+.quiz__feedback {
+  margin-top: 1.2rem;
+  font-weight: 600;
+}
+
+.quiz__feedback--correct {
+  color: var(--primary1);
+}
+
+.quiz__feedback--wrong {
+  color: var(--primary2);
+}
+
+.quiz__reset {
+  margin-top: 2rem;
+  padding: 0.8rem 1.4rem;
+  background: var(--accent-cta);
+  border: none;
+  border-radius: 2rem;
+  cursor: pointer;
+}
+
+.quiz__reset:hover {
+  background: var(--accent-hover);
+}
+
+.hidden {
+  display: none;
+}
+
+/* =========================
+   FULLSCREEN CONFETTI
+========================= */
+#confettiCanvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999;
+}
+
+/* =========================
+   WALD SVG
+========================= */
+.wald {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  fill: var(--primary1);
+  margin-bottom: -5px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+.footer {
+  background: var(--primary1);
+  color: var(--bg);
+  padding: 3rem 1rem;
+}
+
+.footer__content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap; /* wichtig für Mobile */
+  gap: 1rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+}
+
+.footer__links {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.footer__links a {
+  color: var(--bg);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer__links a:hover {
+  color: var(--accent-hover);
+}
+
+.footer__socials {
+  display: flex;
+  gap: 1rem;
+}
+
+.footer__socials a svg {
+  width: 30px;
+  height: 30px;
+  fill: var(--bg);
+  transition: fill 0.3s ease, transform 0.2s ease;
+}
+
+.footer__socials a:hover svg {
+  fill: var(--accent-hover);
+  transform: scale(1.2);
+}
+
+/* =========================
+   FOOTER RESPONSIVE
+========================= */
+@media (max-width: 780px) {
+  .footer__content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer__links {
+    justify-content: center;
+    margin: 0.5rem 0;
+  }
+
+  .footer__socials {
+    justify-content: center;
+  }
+}
+
+
+/* =========================
+   SCROLL TO TOP
+========================= */
+.scroll-top {
+  position: fixed;
+  bottom: 5rem;
+  right: 5rem;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--primary2);
+  color: var(--bg);
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+  z-index: 800;
+}
+
+.scroll-top:hover {
+  background-color: var(--accent-hover);
+  transform: translateY(-4px);
+}
+
+/* =========================
+   SCROLL TO TOP RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+  .scroll-top {
+    bottom: 1rem;
+    right: 1rem;
+  }
+}
+
+/* =========================
+   PROMO SIDE-BOX
+========================= */
+.promo-tab-wrapper {
+  position: fixed;
+  top: 60%;
+  right: 0;
+  transform: translateY(-50%);
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.promo-tab {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.8rem 1rem;
+  font-weight: bold;
+  background: var(--accent-cta);
+  color: var(--text);
+  white-space: nowrap;
+  transform: rotate(90deg);
+  transform-origin: top right;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  cursor: pointer;
+}
+
+.promo-tab__close {
+  background: none;
+  border: none;
+  color: var(--text);
+  font-size: 1.2rem;
+  cursor: pointer;
+  line-height: 1;
+}
+
+/* =========================
+   PROMO SIDE-BOX RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+  .promo-tab {
+    transform: rotate(-270deg);
+    padding: 0.5rem 0.8rem;
+    font-size: 0.85rem;
+    gap: 0.5rem;
+  }
+
+  .promo-tab__close {
+    font-size: 1rem;
+  }
+}
+
+/* =========================
+   MODAL OVERLAY
+========================= */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.modal-overlay.is-active {
+  display: flex;
+}
+
+/* =========================
+   MODAL FENSTER
+========================= */
+.modal {
+  background: var(--bg);
+  max-width: 500px;
+  width: 90%;
+  padding: 3rem 2.5rem;
+  position: relative;
+  text-align: center;
+  border: 5px solid var(--accent-cta);
+  border-radius: 8px;
+}
+
+.modal h2 {
+  margin-bottom: 1rem;
+}
+
+.modal p {
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.modal__close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.modal__actions {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.btn {
+  padding: 0.9rem 1.4rem;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.btn--primary {
+  background: var(--accent-cta);
+  color: var(--bg);
+  border: none;
+  font-weight: bold;
+}
+
+.btn--secondary {
+  background: transparent;
+  border: 0px solid var(--text);
+  color: var(--text);
+}
+
+/* =========================
+   PROJEKT HINWEISE & DISABLED BUTTONS
+========================= */
+.project-hint {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--primary2);
+  color: var(--bg);
+  padding: 0.8rem 1.2rem;
+  border-radius: 1rem;
+  font-size: 0.9rem;
+  z-index: 900;
+}
+
+.is-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.footer__project-note {
+  display: block;
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+/* =========================
+   PROJEKT HINWEISE & DISABLED BUTTONS RESPONSIVE
+========================= */
+@media (max-width: 900px) {
+  .project-hint {
+    text-align: center;
+  }
+  .footer__project-note {
+    padding: 0 1rem;
+    line-height: 1.4;
+  }
+}
