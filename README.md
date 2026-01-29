@@ -12,11 +12,6 @@ Konzeption und Realisierung einer interaktiven Firmenhistorie als Microsite
 Dieses Repository enthält den Quellcode des im Rahmen des oben genannten Moduls erstellten Studienprojekts.  
 Der Code dient ausschließlich zur **Anschauung**. Interaktive Elemente wie Bilder, Audiodateien oder andere Mediendateien sind **nicht enthalten**.
 
-Die Anwendung legt den Fokus auf:
-- Benutzerfreundliche, interaktive Darstellung von Inhalten
-- Strukturierte Aufbereitung historischer Informationen
-- Moderne Webtechnologien und responsives Design
-
 ## Live-Demo
 Die fertige Microsite ist dem Projektbericht zu entnehmen.
 
