@@ -11,7 +11,7 @@ Studiengang: Medieninformatik (Fernstudium)
 
 ## Beschreibung
 Dieses Repository enthält den Quellcode des im Rahmen des oben genannten Moduls erstellten Studienprojekts.  
-Ziel des Projekts war die Konzeption und technische Umsetzung einer interaktiven Microsite zur Darstellung einer Firmenhistorie.
+Der Code dient ausschließlich zur **Anschauung**. Interaktive Elemente wie Bilder, Audiodateien oder andere Mediendateien sind **nicht enthalten**.
 
 Die Anwendung legt den Fokus auf:
 - Benutzerfreundliche, interaktive Darstellung von Inhalten
@@ -24,4 +24,3 @@ Die fertige Microsite ist dem Projektbericht zu entnehmen.
 ## Hinweis
 Dieses Repository enthält ausschließlich den **Quellcode** des Projekts.  
 Hosting, Deployment und Konfigurationsdateien sind nicht Bestandteil dieses Repositories.
-
