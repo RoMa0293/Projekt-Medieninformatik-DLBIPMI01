@@ -65,6 +65,54 @@ navbarLinks.querySelectorAll('a').forEach(link => {
   });
 });
 
+/* =========================
+   WERTE KARTEN
+========================= */
+
+const cardsWrapper = document.querySelector('.values__cards-wrapper');
+const cardsContainer = cardsWrapper.querySelector('.values__cards');
+const cards = cardsContainer.querySelectorAll('.values__card');
+const prevBtn = cardsWrapper.querySelector('.values__nav--prev');
+const nextBtn = cardsWrapper.querySelector('.values__nav--next');
+
+let currentCard = 0;
+
+// Setzt die Position der Karten
+function updateCarousel() {
+  const offset = -currentCard * 100;
+  cardsContainer.style.transform = `translateX(${offset}%)`;
+
+  prevBtn.disabled = currentCard === 0;
+  nextBtn.disabled = currentCard === cards.length - 1;
+}
+
+// Button Events
+prevBtn.addEventListener('click', () => {
+  if (currentCard > 0) {
+    currentCard--;
+    updateCarousel();
+  }
+});
+
+nextBtn.addEventListener('click', () => {
+  if (currentCard < cards.length - 1) {
+    currentCard++;
+    updateCarousel();
+  }
+});
+
+// Swipe Support
+let startX = 0;
+let endX = 0;
+
+cardsContainer.addEventListener('touchstart', e => startX = e.touches[0].clientX);
+cardsContainer.addEventListener('touchend', e => {
+  endX = e.changedTouches[0].clientX;
+  if (startX - endX > 50 && currentCard < cards.length -1) nextBtn.click();
+  if (endX - startX > 50 && currentCard > 0) prevBtn.click();
+});
+
+updateCarousel();
 
 /* =========================
    TIMELINE
@@ -86,27 +134,27 @@ const timelineData = {
   2020: {
     img: 'timeline-2020.jpg',
     title: '2020 – Erste Rezeptideen',
-    text: 'Alles begann in der heimischen Küche ...'
+    text: 'Alles begann in der heimischen Küche: Erste Rezeptideen, intensive Recherche zur pflanzlichen Hundeernährung und Gespräche mit Tierärzt:innen legten den Grundstein für Pawlant. Schon früh stand fest, dass Nachhaltigkeit und Gesundheit untrennbar zusammengehören.'
   },
   2021: {
     img: 'timeline-2021.jpg',
     title: '2021 – Kleinproduktion & Tests',
-    text: 'Die erste kleine Produktionscharge ...'
+    text: 'Die erste kleine Produktionscharge wurde hergestellt und im engen Umfeld getestet. Wertvolles Feedback von Hundebesitzer:innen half dabei, Rezepturen zu verfeinern und Akzeptanz sowie Verträglichkeit weiter zu verbessern.'
   },
   2022: {
     img: 'timeline-2022.jpg',
     title: '2022 – Markteintritt',
-    text: 'Der Online-Shop ging live ...'
+    text: 'Der Online-Shop ging live und Pawlant wurde erstmals einer größeren Öffentlichkeit zugänglich gemacht. Die Community wuchs stetig, erste Kooperationen entstanden und das Interesse an pflanzlicher Hundeernährung nahm spürbar zu.'
   },
   2024: {
     img: 'timeline-2024.jpg',
     title: '2024 – Optimierte Rezepturen',
-    text: 'Basierend auf Nutzerfeedback ...'
+    text: 'Basierend auf Nutzerfeedback wurden Rezepturen weiter optimiert und nachhaltigere Verpackungslösungen eingeführt. Pawlant entwickelte sich kontinuierlich weiter – mit Fokus auf Qualität, Transparenz und Umweltbewusstsein.'
   },
   2026: {
     img: 'timeline-2026.jpg',
     title: '2026 – Heute & Ausblick',
-    text: 'Heute steht Pawlant für eine klare Vision ...'
+    text: 'Heute steht Pawlant für eine klare Vision: gesunde, pflanzliche Hundeernährung mit minimalem ökologischem Pfotenabdruck. Die Marke wächst weiter, neue Ideen entstehen und der Blick ist fest auf eine nachhaltige Zukunft gerichtet.'
   }
 };
 
@@ -380,7 +428,10 @@ function closeModal() {
 }
 
 modalClose.addEventListener('click', closeModal);
-modalCancel.addEventListener('click', closeModal);
+modalCancel.addEventListener('click', () => {
+  closeModal();
+  showProjectHint();
+});
 modalCancel2.addEventListener('click', closeModal);
 
 // Klick außerhalb des Modals
@@ -394,6 +445,18 @@ tabClose.addEventListener('click', e => {
   promoTab.style.display = 'none';
 });
 
+/* =========================
+   NEWSLETTER FOOTER LINK
+========================= */
+
+const newsletterLinks = document.querySelectorAll('.newsletter-footer');
+
+newsletterLinks.forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    promoOverlay.classList.add('is-active');
+  });
+});
 
 /* =========================
    PROJEKT HINWEISE / DUMMY LINKS

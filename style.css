@@ -80,7 +80,19 @@ body {
   gap: 2rem;
 }
 
+/* ===== NAVIGATION Zentrierung Links, da Logo und Icons gleich breit ===== */
+.navbar__logo,
+.navbar__icons {
+  width: 140px; 
+  display: flex;
+  align-items: center;
+}
+
 /* ===== NAVIGATION Navbar Logo ===== */
+.navbar__logo {
+  justify-content: flex-start;
+}
+
 .navbar__logo img {
   cursor: pointer;
   height: 50px;
@@ -137,7 +149,7 @@ body {
 
 /* ===== NAVIGATION Navbar Icons ===== */
 .navbar__icons {
-  display: flex;
+  justify-content: flex-end;
   gap: 1.5rem;
 }
 
@@ -164,6 +176,11 @@ body {
   cursor: pointer;
   z-index: 60;
   position: relative;
+
+  background: none;       
+  border: none;           
+  padding: 0;         
+  outline: none;
 }
 
 .navbar__bar {
@@ -354,7 +371,7 @@ body {
   content: "";
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background-color: var(--text); /*alternative zu Bild*/
+  background-color: rgba(0,0,0,0.3);    /*Bild Overlay*/
   z-index: 1;
 }
 
@@ -378,14 +395,22 @@ body {
 /* =========================
    PAWLANT WERTE
 ========================= */
+.values__cards-wrapper {
+  position: relative;
+  max-width: 400px;
+  margin: 2rem auto;
+  overflow: hidden;
+}
+
 .values__cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
+  display: flex;
+  transition: transform 0.4s ease;
+  width: 100%;
 }
 
 .values__card {
+  flex: 0 0 100%;
+  max-width: 100%;
   background: white;
   padding: 2rem 1rem;
   border-radius: 1rem;
@@ -414,6 +439,57 @@ body {
   font-size: 1rem;
   color: var(--text);
   line-height: 1.4;
+}
+
+.values__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 3rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  z-index: 9;
+  border-radius: 50%;
+}
+
+.values__nav--prev { left: -0.25rem; }
+.values__nav--next { right: -0.25rem; }
+
+.values__nav:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+/* =========================
+   PAWLANT WERTE RESPONSIVE
+========================= */
+
+/* Desktop: normale Grid-Darstellung */
+@media (min-width: 701px) {
+  .values__cards-wrapper {
+    max-width: 100%;
+    overflow: visible;
+  }
+
+  .values__cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    transform: none !important;
+  }
+
+  .values__nav { 
+    display: none; 
+  }
+}
+
+/* Smartphone: Kein Hover-Effekt */
+@media (max-width: 900px) {
+   .values__card:hover {
+    transform: none;
+  }
 }
 
 /* =========================
@@ -460,7 +536,11 @@ body {
 ========================= */
 @media (max-width: 900px) {
    .pawlant__story-logo {
-    margin: 2rem auto 0 auto;
+    order: 1;
+    margin: 0rem auto 1.5rem auto !important;
+  }
+  .pawlant__story-text {
+    order: 2;
   }
 }
 
@@ -591,7 +671,7 @@ body {
   position: relative;
   width: 100%;
   max-width: 800px;
-  height: 250px;
+  height: 400px;
 }
 
 .about__timeline-img img {
@@ -607,7 +687,7 @@ body {
 }
 
 .about__timeline-text {
-  height: 250px;
+  height: 400px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -652,6 +732,7 @@ body {
 
   .about__timeline-text {
     text-align: left;
+    height: 250px;
     padding: 0 1rem;
   }
 
@@ -734,6 +815,11 @@ body {
 @media (max-width: 900px) {
   .pawlant__numbers {
     margin-block: -4rem;
+  }
+  
+  /* Smartphone: Kein Hover-Effekt */
+  .numbers__card:hover {
+    transform: none;
   }
 }
 
@@ -887,11 +973,23 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap; /* wichtig für Mobile */
+  flex-wrap: wrap;
   gap: 1rem;
   max-width: 1400px;
   margin: 0 auto;
   font-size: 1.1rem;
+}
+
+/* ===== FOOTER Zentrierung Links, da Copyright und Socials gleich breit ===== */
+.footer__content > span,
+.footer__socials {
+  width: 180px;
+  display: flex;
+  align-items: center;
+}
+
+.footer__content > span {       /* Copyright Text */
+  justify-content: flex-start;
 }
 
 .footer__links {
@@ -911,7 +1009,7 @@ body {
 }
 
 .footer__socials {
-  display: flex;
+  justify-content: flex-end;
   gap: 1rem;
 }
 
@@ -1141,6 +1239,11 @@ body {
   margin-top: 1.5rem;
   font-size: 0.75rem;
   opacity: 0.7;
+}
+
+.dummy-link {
+  text-decoration: none;
+  color: var(--text);
 }
 
 /* =========================
