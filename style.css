@@ -402,6 +402,27 @@ body {
   overflow: hidden;
 }
 
+.values__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 3rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  z-index: 9;
+  border-radius: 50%;
+}
+
+.values__nav--prev { 
+  left: -0.25rem; 
+}
+
+.values__nav--next { 
+  right: -0.25rem; 
+}
+
 .values__cards {
   display: flex;
   transition: transform 0.4s ease;
@@ -441,22 +462,6 @@ body {
   line-height: 1.4;
 }
 
-.values__nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  font-size: 3rem;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  z-index: 9;
-  border-radius: 50%;
-}
-
-.values__nav--prev { left: -0.25rem; }
-.values__nav--next { right: -0.25rem; }
-
 .values__nav:disabled {
   opacity: 0.3;
   cursor: default;
@@ -473,15 +478,15 @@ body {
     overflow: visible;
   }
 
+  .values__nav { 
+    display: none; 
+  }
+
   .values__cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 2rem;
     transform: none !important;
-  }
-
-  .values__nav { 
-    display: none; 
   }
 }
 
@@ -596,7 +601,7 @@ body {
 /* =========================
    PAWLANT MISSION RESPONSIVE
 ========================= */
-@media (max-width: 1078px) {
+@media (max-width: 1280px) {
   .mission__inner {
     flex-direction: column;
     align-items: center;
@@ -612,12 +617,49 @@ body {
   }
   .mission__video-wrapper {
     max-height: 300px;
+    max-width: 600px;
   }
 }
 
 /* =========================
    PAWLANT GESCHICHTE
 ========================= */
+.about__timeline-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0rem;
+  padding: 0 0 3rem 0;
+  align-items: center;
+}
+
+.about__timeline-img {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  height: 400px;
+}
+
+.about__timeline-img img {
+  width: 100%;
+  height: 100%;
+  border-radius: 1rem 0 0 1rem;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: opacity 0.5s ease;
+  opacity: 1;
+}
+
+.about__timeline-text {
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+  line-height: 1.4;
+}
+
 .about__timeline-buttons {
   display: flex;
   justify-content: center;
@@ -657,42 +699,6 @@ body {
   height: 3px;
   background-color: var(--primary1);
   border-radius: 2px;
-}
-
-.about__timeline-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0rem;
-  padding: 0 0 3rem 0;
-  align-items: center;
-}
-
-.about__timeline-img {
-  position: relative;
-  width: 100%;
-  max-width: 800px;
-  height: 400px;
-}
-
-.about__timeline-img img {
-  width: 100%;
-  height: 100%;
-  border-radius: 1rem 0 0 1rem;
-  object-fit: cover;
-  position: absolute;
-  top: 0;
-  left: 0;
-  transition: opacity 0.5s ease;
-  opacity: 1;
-}
-
-.about__timeline-text {
-  height: 400px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: left;
-  line-height: 1.4;
 }
 
 .text-highlight {
@@ -1028,7 +1034,7 @@ body {
 /* =========================
    FOOTER RESPONSIVE
 ========================= */
-@media (max-width: 780px) {
+@media (max-width: 900px) {
   .footer__content {
     flex-direction: column;
     text-align: center;
@@ -1076,7 +1082,7 @@ body {
 /* =========================
    SCROLL TO TOP RESPONSIVE
 ========================= */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .scroll-top {
     bottom: 1rem;
     right: 1rem;
@@ -1123,7 +1129,7 @@ body {
 /* =========================
    PROMO SIDE-BOX RESPONSIVE
 ========================= */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .promo-tab {
     transform: rotate(-270deg);
     padding: 0.5rem 0.8rem;
